@@ -1,4 +1,4 @@
-import { Ship } from "../logic";
+import { Ship, Gameboard } from "../logic";
 
 describe("Creates ship object", () => {
   test("Checks initial state of isSunk methode", () => {
@@ -18,5 +18,33 @@ describe("Creates ship object", () => {
     ship.hit();
     ship.hit();
     expect(ship.isSunk()).toBeFalsy();
+  });
+});
+
+describe("Creates a gameboard object", () => {
+  test("Checks if ship goes outside the board x-axis", () => {
+    const ship = new Ship(4);
+    const gameboard = new Gameboard();
+    expect(gameboard.placeShip(ship, [5, 7], "x")).toBe("invalid index");
+  });
+
+  test("Checks if ship goes outside the board y-axis", () => {
+    const ship = new Ship(4);
+    const gameboard = new Gameboard();
+    expect(gameboard.placeShip(ship, [8, 5], "y")).toBe("invalid index");
+  });
+
+  test("Checks if ship overlaps with another ship", () => {
+    const carrier = new Ship(5);
+    const battleship = new Ship(4);
+    const gameboard = new Gameboard();
+    gameboard.placeShip(carrier, [4, 4], "x");
+    expect(gameboard.placeShip(battleship, [4, 6], "x")).toBe("overlap");
+  });
+
+  test("Checks duplicate attacks on the same coordinate", () => {
+    const gameboard = new Gameboard();
+    gameboard.receiveAttack([2, 4]);
+    expect(gameboard.receiveAttack([2, 4])).toBe("invalid coordinates");
   });
 });

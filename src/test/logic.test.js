@@ -1,4 +1,4 @@
-import { Ship, Gameboard } from "../logic";
+import { Ship, Gameboard, Player } from "../logic";
 
 describe("Creates ship object", () => {
   test("Checks initial state of isSunk methode", () => {
@@ -46,5 +46,22 @@ describe("Creates a gameboard object", () => {
     const gameboard = new Gameboard();
     gameboard.receiveAttack([2, 4]);
     expect(gameboard.receiveAttack([2, 4])).toBe("invalid coordinates");
+  });
+});
+
+describe("Creates a player object", () => {
+  test("Checks the players ship positions", () => {
+    const player = new Player("John", "real");
+    const carrier = new Ship(5);
+    player.gameboard.placeShip(carrier, [4, 4], "y");
+    expect(player.gameboard.shipPositions[0].position).toEqual(
+      expect.arrayContaining([
+        [4, 4],
+        [5, 4],
+        [6, 4],
+        [7, 4],
+        [8, 4],
+      ]),
+    );
   });
 });

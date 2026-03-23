@@ -132,3 +132,11 @@ export class Gameboard {
     return "miss";
   }
 }
+
+export class Player {
+  constructor(playerName, playerType) {
+    this.playerName = playerName;
+    this.playerType = playerType;
+    this.gameboard = new Gameboard();
+  }
+}

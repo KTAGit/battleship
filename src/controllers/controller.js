@@ -3,7 +3,7 @@ import { Ship, Player } from "../logic";
 // Initialize a new game immediately with two players
 const [playerOne, playerTwo] = initiateNewGame("John", "Alex");
 // Keeps track of whose turn it is ("playerOne" | "playerTwo" | null for start)
-let trackTurn = null;
+export let trackTurn = null;
 
 // Creates two Player instances using the provided names.
 function createPlayers(playerOneName, playerTwoName) {
@@ -62,33 +62,23 @@ function initiateNewGame(playerOneName, PlayerTwoName) {
 // Executes an attack on the opposing player's gameboard.
 function attackShip(player, coordinate) {
   if (player === "playerOne") {
-    playerTwo.gameboard.receiveAttack(coordinate);
+    return playerTwo.gameboard.receiveAttack(coordinate);
   }
   if (player === "playerTwo") {
-    playerOne.gameboard.receiveAttack(coordinate);
+    return playerOne.gameboard.receiveAttack(coordinate);
   }
 }
 
 // Controls turn-based gameplay.
-function turnController(coordinate) {
+export function turnController(coordinate) {
   if (trackTurn === null || trackTurn === "playerOne") {
-    attackShip("playerOne", coordinate);
+    const result = attackShip("playerOne", coordinate);
     trackTurn = "playerTwo";
-    // console.log(`${playerOne.playerName} has attacked ${coordinate}`);
-    // console.log(`It's ${playerTwo.playerName}'s turn`);
-    return;
+    return result;
   }
   if (trackTurn === "playerTwo") {
-    attackShip("playerTwo", coordinate);
+    const result = attackShip("playerTwo", coordinate);
     trackTurn = "playerOne";
-    // console.log(`${playerTwo.playerName} has attacked ${coordinate}`);
-    // console.log(`It's ${playerOne.playerName}'s turn`);
-    return;
+    return result;
   }
 }
-
-turnController([5, 6]);
-turnController([3, 5]);
-turnController([2, 6]);
-turnController([8, 7]);
-turnController([1, 1]);

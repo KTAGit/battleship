@@ -49,12 +49,12 @@ function initiateNewGame(playerOneName, PlayerTwoName) {
   // Place ships for player one
   for (let i = 0; i < playerOneShips.length; i++) {
     const ship = playerOneShips[i];
-    playerOne.gameboard.placeShip(ship, coordinates[i], shipAxis[i]);
+    // playerOne.gameboard.placeShip(ship, coordinates[i], shipAxis[i]);
   }
   // Place ships for player two
   for (let i = 0; i < playertwoShips.length; i++) {
     const ship = playertwoShips[i];
-    playerTwo.gameboard.placeShip(ship, coordinates[i], shipAxis[i]);
+    // playerTwo.gameboard.placeShip(ship, coordinates[i], shipAxis[i]);
   }
   return [playerOne, playerTwo];
 }

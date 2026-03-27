@@ -40,6 +40,23 @@ h1 {
 }
 
 .playerone-gameboard-wrapper {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.playerone-grid {
+  width: fit-content;
+  display: grid;
+  grid-template-columns: repeat(10, 50px);
+  border: #233554 20px solid;
+  border-radius: 15px;
+  gap: 2px;
+  background-color: #04122a;
+}
+
+.playertwo-grid {
   width: fit-content;
   display: grid;
   grid-template-columns: repeat(10, 50px);
@@ -50,19 +67,17 @@ h1 {
 }
 
 .playertwo-gameboard-wrapper {
-  width: fit-content;
-  display: grid;
-  grid-template-columns: repeat(10, 50px);
-  border: #233554 20px solid;
-  border-radius: 15px;
-  gap: 2px;
-  background-color: #04122a;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .grid-cell {
   width: 50px;
   height: 50px;
   background-color: #112240;
+  z-index: 1;
 }
 
 .grid-cell:hover {
@@ -130,4 +145,184 @@ p {
   align-items: center;
   font-family: "Space Grotesk", sans-serif;
   font-size: xx-large;
+}
+
+.fleet-section {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.playerone-fleet-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 50px;
+  align-items: center;
+  justify-content: center;
+  width: 550px;
+  height: 150px;
+}
+
+.playertwo-fleet-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 50px;
+  align-items: center;
+  justify-content: center;
+  width: 550px;
+  height: 150px;
+}
+
+.fleet-img-0-wrapper {
+  padding: 0%;
+  width: calc(5 * 50px);
+  height: 50px;
+}
+
+.fleet-img-0-wrapper img {
+  /* height: 100%; */
+  width: calc(5 * 50px);
+  object-fit: fill;
+  position: absolute;
+}
+
+.fleet-img-0-wrapper img:hover {
+  cursor: grab;
+}
+
+.fleet-img-1-wrapper {
+  padding: 0%;
+  width: calc(4 * 50px);
+  height: 50px;
+}
+
+.fleet-img-1-wrapper img {
+  height: 100%;
+  width: 100%;
+  object-fit: fill;
+}
+
+.fleet-img-1-wrapper img:hover {
+  cursor: grab;
+}
+
+.fleet-img-2-wrapper {
+  padding: 0%;
+  width: calc(3 * 50px);
+  height: 50px;
+}
+
+.fleet-img-2-wrapper img {
+  height: 100%;
+  width: 100%;
+  object-fit: fill;
+}
+
+.fleet-img-2-wrapper img:hover {
+  cursor: grab;
+}
+
+.fleet-img-3-wrapper {
+  padding: 0%;
+  width: calc(3 * 50px);
+  height: 50px;
+}
+
+.fleet-img-3-wrapper img {
+  height: 100%;
+  width: 100%;
+  object-fit: fill;
+}
+
+.fleet-img-3-wrapper img:hover {
+  cursor: grab;
+}
+
+.fleet-img-4-wrapper {
+  padding: 0%;
+  width: calc(2 * 50px);
+  height: 50px;
+}
+
+.fleet-img-4-wrapper img {
+  height: 100%;
+  width: 100%;
+  object-fit: fill;
+}
+
+.fleet-img-4-wrapper img:hover {
+  cursor: grab;
+}
+
+.ship-layer-pleyerone {
+  position: absolute;
+  z-index: 10;
+  width: calc(10 * 52px);
+  height: calc(10 * 52px);
+  inset: 0;
+
+  pointer-events: none;
+}
+
+.ship-layer-pleyertwo {
+  position: absolute;
+  z-index: 10;
+  width: calc(10 * 52px);
+  height: calc(10 * 52px);
+  inset: 0;
+
+  pointer-events: none;
+}
+
+.ship-layer-pleyerone .img-0 {
+  height: 50px;
+  width: calc(5 * 50px);
+  pointer-events: auto;
+}
+.ship-layer-pleyerone .img-1 {
+  height: 50px;
+  width: calc(4 * 50px);
+  pointer-events: auto;
+}
+.ship-layer-pleyerone .img-2 {
+  height: 50px;
+  width: calc(3 * 50px);
+  pointer-events: auto;
+}
+.ship-layer-pleyerone .img-3 {
+  height: 50px;
+  width: calc(3 * 50px);
+  pointer-events: auto;
+}
+.ship-layer-pleyerone .img-4 {
+  height: 50px;
+  width: calc(2 * 50px);
+  pointer-events: auto;
+}
+
+.ship-layer-pleyertwo .img-0 {
+  height: 50px;
+  width: calc(5 * 50px);
+  pointer-events: auto;
+}
+.ship-layer-pleyertwo .img-1 {
+  height: 50px;
+  width: calc(4 * 50px);
+  pointer-events: auto;
+}
+.ship-layer-pleyertwo .img-2 {
+  height: 50px;
+  width: calc(3 * 50px);
+  pointer-events: auto;
+}
+.ship-layer-pleyertwo .img-3 {
+  height: 50px;
+  width: calc(3 * 50px);
+  pointer-events: auto;
+}
+.ship-layer-pleyertwo .img-4 {
+  height: 50px;
+  width: calc(2 * 50px);
+  pointer-events: auto;
 }

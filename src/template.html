@@ -6,6 +6,10 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link
       href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap"
       rel="stylesheet"
     />
@@ -13,7 +17,7 @@
   </head>
   <body>
     <nav>
-      <h1>BATTLESHIP: COMMAND</h1>
+      <h1 class="main-title">BATTLESHIP: COMMAND</h1>
     </nav>
 
     <section class="main-section">
@@ -24,7 +28,7 @@
         </div>
         <div class="vs-wrapper">
           <span class="line one"></span>
-          <p>VS</p>
+          <p class="vs">VS</p>
           <span class="line two"></span>
         </div>
         <div class="playertwo-gameboard-wrapper">
@@ -33,6 +37,7 @@
         </div>
       </div>
     </section>
+
     <section class="fleet-section">
       <div class="playerone-fleet-container"></div>
       <div class="vs-wrapper">
@@ -42,5 +47,46 @@
       </div>
       <div class="playertwo-fleet-container"></div>
     </section>
+    <div class="tint">
+      <section class="initial-screen">
+        <form action="#" class="form">
+          <h1 class="title">BATTLESHIP: <span>COMMAND</span></h1>
+          <p class="strategic-protocol">
+            INITIALIZE STRATEGIC NAVAL ENGAGEMENT PROTOCOL
+          </p>
+          <div class="gameplay-mode-selection">
+            <button>PLAYER VS PLAYER</button>
+            <button>PLAYER VS COMPUTER</button>
+          </div>
+          <div class="player-name-input-container">
+            <div class="player-one-input-wrapper">
+              <label for="player-one-input">COMMANDING OFFICER 01</label>
+              <div class="input-wrapper">
+                <i class="fa-solid fa-user"></i>
+                <input
+                  type="text"
+                  placeholder="ENTER CALLSIGN"
+                  name="player-one-input"
+                />
+              </div>
+            </div>
+            <div class="player-two-input-wrapper">
+              <label for="player-two-input">COMMANDING OFFICER 02</label>
+              <div class="input-wrapper">
+                <i class="fa-solid fa-user"></i>
+                <input
+                  type="text"
+                  placeholder="ENTER CALLSIGN"
+                  name="player-two-input"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="button-wrapper">
+            <button><span>𖣠</span>START MISSION</button>
+          </div>
+        </form>
+      </section>
+    </div>
   </body>
 </html>

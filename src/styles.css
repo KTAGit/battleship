@@ -1,4 +1,5 @@
 body {
+  height: 100dvh;
   margin: 0;
   padding: 0;
   background:
@@ -7,6 +8,7 @@ body {
     linear-gradient(135deg, #071326 0%, #0e1c34 50%, #1a283f 100%);
   background-color: #0a192f;
   background-attachment: fixed;
+  position: relative;
 }
 
 nav {
@@ -18,8 +20,7 @@ nav {
   box-shadow: 1px 5px 50px 20px #182a49;
   border-bottom: solid 1px #29487ee0;
 }
-
-h1 {
+.main-title {
   color: #ffffff;
   font-family: "Space Grotesk", sans-serif;
   font-size: x-large;
@@ -94,7 +95,7 @@ h1 {
   align-items: center;
 }
 
-p {
+.vs {
   width: fit-content;
   height: fit-content;
   color: #586271;
@@ -325,4 +326,218 @@ p {
   height: 50px;
   width: calc(2 * 50px);
   pointer-events: auto;
+}
+
+.tint {
+  position: fixed;
+  inset: 0;
+  background-color: #0a192f3d;
+  backdrop-filter: blur(4px);
+  z-index: 11;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.initial-screen {
+  z-index: 12;
+  width: fit-content;
+  background:
+    radial-gradient(circle at 20% 30%, rgba(28, 42, 67, 0.6), transparent 40%),
+    radial-gradient(circle at 80% 70%, rgba(13, 27, 50, 0.5), transparent 50%),
+    linear-gradient(135deg, #071326 0%, #0e1c34 50%, #1a283f 100%);
+  background-color: #0a192f;
+  /* border-radius: 10px; */
+  border: 1px solid #64ffdb4b;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.title {
+  color: #ffffff;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 3.8rem;
+  margin: 30px 100px 0px 100px;
+}
+
+.title span {
+  color: #64ffda;
+}
+
+.strategic-protocol {
+  font-size: 1.2rem;
+  word-spacing: 1px;
+  letter-spacing: 1px;
+  margin-top: 10px;
+  margin-bottom: 50px;
+  font-family: "Space Grotesk", sans-serif;
+  font-style: none;
+  color: #93a2b7;
+  font-weight: lighter;
+}
+
+.gameplay-mode-selection {
+  width: fit-content;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 10px 50px 0px 50px;
+  padding: 5px;
+  border: 1px solid #64ffdb22;
+  /* border-radius: 10px; */
+}
+
+.gameplay-mode-selection button {
+  width: 400px;
+  height: 60px;
+  border: none;
+  background-color: #0c1d33;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: larger;
+  font-style: none;
+  color: #93a2b7;
+  font-weight: lighter;
+  word-spacing: 1px;
+  letter-spacing: 2px;
+}
+
+.gameplay-mode-selection button:hover {
+  cursor: pointer;
+}
+
+.player-name-input-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 50px;
+  margin: 50px 50px 50px 50px;
+}
+
+.player-name-input-container div {
+  display: flex;
+  flex-direction: column;
+}
+
+.player-name-input-container div label {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: medium;
+  word-spacing: 2px;
+  letter-spacing: 1px;
+  font-style: none;
+  color: #93a2b7;
+  font-weight: lighter;
+  margin-bottom: 10px;
+}
+
+.player-name-input-container input {
+  width: 375px;
+  height: 60px;
+  background-color: #0c1c33;
+  font-family: "Space Grotesk", sans-serif;
+  border: none;
+}
+
+.player-name-input-container p {
+  margin: 0px 0px 10px 0px;
+}
+
+.button-wrapper {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.button-wrapper button {
+  width: 90%;
+  height: 90px;
+  margin: 0px 0px 100px 0px;
+  font-family: "Space Grotesk", sans-serif;
+  color: black;
+  word-spacing: 1px;
+  letter-spacing: 10px;
+  font-weight: bolder;
+  font-size: x-large;
+  background-color: #64ffdb;
+  border: none;
+  padding: 0;
+  line-height: 1;
+  box-shadow: 0px 0px 10px 1px #64ffdb41;
+}
+
+.button-wrapper button:hover {
+  cursor: pointer;
+  box-shadow: 0px 0px 20px 1px #64ffdb41;
+}
+
+.button-wrapper button span {
+  font-size: 2.5rem;
+  vertical-align: sub;
+}
+
+.player-two-input-wrapper .input-wrapper {
+  position: relative;
+}
+
+.player-one-input-wrapper .input-wrapper {
+  position: relative;
+}
+
+.player-one-input-wrapper .input-wrapper .fa-user {
+  position: absolute;
+  top: 23px;
+  left: 20px;
+  color: #93a2b7;
+}
+
+.player-two-input-wrapper .input-wrapper .fa-user {
+  position: absolute;
+  top: 23px;
+  left: 20px;
+  color: #93a2b7;
+}
+
+.player-one-input-wrapper .input-wrapper input {
+  text-indent: 50px;
+  color: #93a2b7;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: large;
+  word-spacing: 1px;
+  letter-spacing: 2px;
+  border: 1px solid #64ffdb2b;
+}
+
+.player-two-input-wrapper .input-wrapper input {
+  text-indent: 50px;
+  color: #b1bbc9;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: large;
+  word-spacing: 1px;
+  letter-spacing: 2px;
+  border: 1px solid #64ffdb2b;
+}
+
+.player-two-input-wrapper .input-wrapper input::placeholder {
+  color: #b1bbc9;
+  font-family: "Space Grotesk", sans-serif;
+  font-weight: lighter;
+}
+
+.player-one-input-wrapper .input-wrapper input::placeholder {
+  color: #b1bbc9;
+  font-family: "Space Grotesk", sans-serif;
+  font-weight: lighter;
+}
+
+.player-one-input-wrapper .input-wrapper input:focus {
+  outline: none;
+  box-shadow: 0 0 3px #64ffdbb7;
+}
+.player-two-input-wrapper .input-wrapper input:focus {
+  outline: none;
+  box-shadow: 0 0 3px #64ffdbb7;
 }

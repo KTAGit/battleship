@@ -88,7 +88,7 @@ function dragEnter(e) {
     gridCellElement.style.boxShadow = "0px 0px 1px 1px #64ffdb98";
     let x = Number(e.target.dataset.x);
     let y = Number(e.target.dataset.y);
-    // console.log([x, y]);
+    console.log([x, y]);
   }
 }
 

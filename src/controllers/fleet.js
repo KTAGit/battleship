@@ -6,6 +6,13 @@ import patrolBoat from "../assets/patrol-boat.png";
 
 // Array containing all fleet ship image sources
 const fleet = [carrier, battleship, destroyer, submarine, patrolBoat];
+const fleetName = [
+  "carrier",
+  "battleship",
+  "destroyer",
+  "submarine",
+  "patrolBoat",
+];
 
 // DOM references for player fleet containers and ship layers
 const playerOneContainer = document.querySelector(".playerone-fleet-container");
@@ -26,6 +33,7 @@ function generateFleets(player, container) {
     img.classList.add(`img-${index}`);
     img.classList.add(player);
     img.dataset.axis = "x";
+    img.dataset.name = fleetName[index];
     imgWrapper.appendChild(img);
     container.appendChild(imgWrapper);
   });

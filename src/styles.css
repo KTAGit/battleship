@@ -431,7 +431,6 @@ nav {
   font-style: none;
   color: #93a2b7;
   font-weight: lighter;
-  margin-bottom: 10px;
 }
 
 .player-name-input-container input {
@@ -540,4 +539,18 @@ nav {
 .player-two-input-wrapper .input-wrapper input:focus {
   outline: none;
   box-shadow: 0 0 3px #64ffdbb7;
+}
+
+.gameplay-mode-selection .selected {
+  background-color: #64ffdb;
+  color: black;
+  box-shadow: 0 0 5px #64ffdbb7;
+}
+
+.player-one-input-lable {
+  margin-bottom: 10px;
+}
+
+.player-two-input-lable {
+  margin-bottom: 10px;
 }

@@ -1,7 +1,7 @@
 import { Ship, Player } from "../logic";
 
 // Initialize a new game immediately with two players
-const [playerOne, playerTwo] = initiateNewGame("John", "Alex");
+let playerOne, playerTwo;
 // Keeps track of whose turn it is ("playerOne" | "playerTwo" | null for start)
 export let trackTurn = null;
 
@@ -29,35 +29,42 @@ function generateShips() {
  * - Generates ships for both players
  * - Places ships on predefined coordinates and orientations
  */
-function initiateNewGame(playerOneName, PlayerTwoName) {
+export function initiateNewGame(playerOneName, PlayerTwoName) {
   const [playerOne, playerTwo] = createPlayers(playerOneName, PlayerTwoName);
   const playerOneShips = generateShips();
-  const playertwoShips = generateShips();
+  const playerTwoShips = generateShips();
 
   // Predefined ship placement coordinates
-  const coordinates = [
-    [2, 2],
-    [5, 3],
-    [1, 8],
-    [3, 4],
-    [6, 4],
-  ];
+  // const coordinates = [
+  //   [2, 2],
+  //   [5, 3],
+  //   [1, 8],
+  //   [3, 4],
+  //   [6, 4],
+  // ];
 
   // Axis for ship placement ("x" = horizontal, "y" = vertical)
-  const shipAxis = ["y", "x", "y", "x", "y"];
+  // const shipAxis = ["y", "x", "y", "x", "y"];
 
   // Place ships for player one
-  for (let i = 0; i < playerOneShips.length; i++) {
-    const ship = playerOneShips[i];
-    // playerOne.gameboard.placeShip(ship, coordinates[i], shipAxis[i]);
-  }
+  // for (let i = 0; i < playerOneShips.length; i++) {
+  //   const ship = playerOneShips[i];
+  // playerOne.gameboard.placeShip(ship, coordinates[i], shipAxis[i]);
+  // }
   // Place ships for player two
-  for (let i = 0; i < playertwoShips.length; i++) {
-    const ship = playertwoShips[i];
-    // playerTwo.gameboard.placeShip(ship, coordinates[i], shipAxis[i]);
-  }
-  return [playerOne, playerTwo];
+  // for (let i = 0; i < playertwoShips.length; i++) {
+  //   const ship = playertwoShips[i];
+  // playerTwo.gameboard.placeShip(ship, coordinates[i], shipAxis[i]);
+  // }
+  return [
+    [playerOne, playerOneShips],
+    [playerTwo, playerTwoShips],
+  ];
 }
+
+// export function placeShipsForEachPlayer() {
+
+// }
 
 // Executes an attack on the opposing player's gameboard.
 function attackShip(player, coordinate) {

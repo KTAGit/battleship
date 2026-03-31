@@ -55,15 +55,18 @@
             INITIALIZE STRATEGIC NAVAL ENGAGEMENT PROTOCOL
           </p>
           <div class="gameplay-mode-selection">
-            <button>PLAYER VS PLAYER</button>
-            <button>PLAYER VS COMPUTER</button>
+            <button id="p-vs-p" class="selected">PLAYER VS PLAYER</button>
+            <button id="p-vs-c">PLAYER VS COMPUTER</button>
           </div>
           <div class="player-name-input-container">
             <div class="player-one-input-wrapper">
-              <label for="player-one-input">COMMANDING OFFICER 01</label>
+              <label class="player-one-input-lable" for="player-one-input"
+                >COMMANDING OFFICER 01</label
+              >
               <div class="input-wrapper">
                 <i class="fa-solid fa-user"></i>
                 <input
+                  id="player-one-input"
                   type="text"
                   placeholder="ENTER CALLSIGN"
                   name="player-one-input"
@@ -71,10 +74,13 @@
               </div>
             </div>
             <div class="player-two-input-wrapper">
-              <label for="player-two-input">COMMANDING OFFICER 02</label>
+              <label class="player-two-input-lable" for="player-two-input"
+                >COMMANDING OFFICER 02</label
+              >
               <div class="input-wrapper">
                 <i class="fa-solid fa-user"></i>
                 <input
+                  id="player-two-input"
                   type="text"
                   placeholder="ENTER CALLSIGN"
                   name="player-two-input"
@@ -83,7 +89,7 @@
             </div>
           </div>
           <div class="button-wrapper">
-            <button><span>𖣠</span>START MISSION</button>
+            <button id="submit-btn"><span>𖣠</span>START MISSION</button>
           </div>
         </form>
       </section>

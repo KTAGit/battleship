@@ -1,4 +1,4 @@
-import { Ship, Player } from "../logic";
+import { Ship, Player, Gameboard } from "../logic";
 
 // Initialize a new game immediately with two players
 let playerOne, playerTwo;
@@ -62,9 +62,26 @@ export function initiateNewGame(playerOneName, PlayerTwoName) {
   ];
 }
 
-// export function placeShipsForEachPlayer() {
+export function checkShipPlacement(coordinates, length, axis) {
+  const positions = [];
+  // Generate ship positions based on axis direction
+  for (let i = 0; i < length; i++) {
+    if (axis === "x") {
+      let newCoordinate = [coordinates[0], coordinates[1] + i];
+      positions.push(newCoordinate);
+    } else if (axis === "y") {
+      let newCoordinate = [coordinates[0] + i, coordinates[1]];
+      positions.push(newCoordinate);
+    }
+  }
 
-// }
+  // Validate positions (within bounds and no overlap)
+  for (let [x, y] of positions) {
+    if (x >= 10 || y >= 10 || x < 0 || y < 0) {
+      return "invalid index";
+    }
+  }
+}
 
 // Executes an attack on the opposing player's gameboard.
 function attackShip(player, coordinate) {

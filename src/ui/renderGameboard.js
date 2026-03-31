@@ -1,4 +1,8 @@
-import { turnController, trackTurn } from "../controllers/controller";
+import {
+  turnController,
+  trackTurn,
+  checkShipPlacement,
+} from "../controllers/controller";
 import { draggedFleet } from "../controllers/fleet";
 import { Ship, Player, Gameboard } from "../logic";
 
@@ -84,13 +88,20 @@ playeTwoContainer.addEventListener("click", (e) => {
 function dragEnter(e) {
   e.preventDefault();
   if (e.target.className === "grid-cell") {
-    const gridCellElement = e.target;
-    gridCellElement.style.boxShadow = "0px 0px 1px 1px #64ffdb98";
     let x = Number(e.target.dataset.x);
     let y = Number(e.target.dataset.y);
-    // Gameboard.placeShip();
-    console.log([x, y]);
-    console.log(draggedFleet);
+    const gridCellElement = e.target;
+    let status = checkShipPlacement(
+      [x, y],
+      draggedFleet.dataset.length,
+      draggedFleet.dataset.axis,
+    );
+    if (status === "invalid index") {
+      gridCellElement.style.boxShadow = "0px 0px 1px 1px #ff646498";
+      return;
+    } else {
+      gridCellElement.style.boxShadow = "0px 0px 1px 1px #64ffdb98";
+    }
   }
 }
 
@@ -111,7 +122,18 @@ function dragLeave(e) {
 function dragDrop(e) {
   e.preventDefault();
   let correctShip;
-
+  if (
+    checkShipPlacement(
+      [Number(e.target.dataset.x), Number(e.target.dataset.y)],
+      draggedFleet.dataset.length,
+      draggedFleet.dataset.axis,
+    ) === "invalid index"
+  ) {
+    e.target.style.boxShadow = "none";
+    return;
+  }
+  draggedFleet.dataset.x = e.target.dataset.x;
+  draggedFleet.dataset.y = e.target.dataset.y;
   // Determine which board is targeted
   const isPlayerOneBoard = e.target.closest(".playerone-grid");
   const isPlayerTwoBoard = e.target.closest(".playertwo-grid");
@@ -169,6 +191,7 @@ function dragDrop(e) {
     draggedFleet.style.left = `${offsetTwoX}px`;
     draggedFleet.style.top = `${offsetTwoY}px`;
   }
+  e.target.style.boxShadow = "none";
 }
 
 // Select both player boards

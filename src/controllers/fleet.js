@@ -3,15 +3,16 @@ import carrier from "../assets/carrier.png";
 import destroyer from "../assets/destroyer.png";
 import submarine from "../assets/submarine.png";
 import patrolBoat from "../assets/patrol-boat.png";
+import { checkShipPlacement } from "./controller";
 
 // Array containing all fleet ship image sources
 const fleet = [carrier, battleship, destroyer, submarine, patrolBoat];
 const fleetName = [
-  "carrier",
-  "battleship",
-  "destroyer",
-  "submarine",
-  "patrolBoat",
+  ["carrier", 5],
+  ["battleship", 4],
+  ["destroyer", 3],
+  ["submarine", 3],
+  ["patrolBoat", 2],
 ];
 
 // DOM references for player fleet containers and ship layers
@@ -33,7 +34,8 @@ function generateFleets(player, container) {
     img.classList.add(`img-${index}`);
     img.classList.add(player);
     img.dataset.axis = "x";
-    img.dataset.name = fleetName[index];
+    img.dataset.name = fleetName[index][0];
+    img.dataset.length = fleetName[index][1];
     imgWrapper.appendChild(img);
     container.appendChild(imgWrapper);
   });
@@ -49,6 +51,14 @@ generateFleets("playertwo", playerTwoContainer);
  * and adjusts transform origin based on ship size
  */
 function rotateShip(e) {
+  let x = Number(e.target.dataset.x);
+  let y = Number(e.target.dataset.y);
+  let length = Number(e.target.dataset.length);
+  let axis = e.target.dataset.axis;
+  axis === "x" ? (axis = "y") : (axis = "x");
+  if (checkShipPlacement([x, y], length, axis) === "invalid index") {
+    return;
+  }
   if (e.target.style.rotate === "90deg") {
     e.target.style.rotate = "0deg";
     e.target.dataset.axis = "x";

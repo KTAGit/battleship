@@ -185,7 +185,6 @@ function dragDrop(e) {
       "playerOne",
       draggedFleet,
       [x, y],
-      draggedFleet.dataset.length,
       draggedFleet.dataset.axis,
     );
     if (result === "overlap") return;
@@ -201,7 +200,6 @@ function dragDrop(e) {
       "playerTwo",
       draggedFleet,
       [x, y],
-      draggedFleet.dataset.length,
       draggedFleet.dataset.axis,
     );
     if (result === "overlap") return;

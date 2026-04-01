@@ -35,7 +35,7 @@ export function initiateNewGame(playerOneName, PlayerTwoName) {
 }
 
 // Places a selected ship on the specified player's board
-export function placeShipForPlayer(player, shipEl, coordinates, length, axis) {
+export function placeShipForPlayer(player, shipEl, coordinates, axis) {
   if (player === "playerOne") {
     for (const ship of playerOneData[1]) {
       if (ship.shipName === shipEl.dataset.name) {
@@ -44,9 +44,9 @@ export function placeShipForPlayer(player, shipEl, coordinates, length, axis) {
     }
   }
   if (player === "playerTwo") {
-    for (const ship of playerOneData[1]) {
+    for (const ship of playerTwoData[1]) {
       if (ship.shipName === shipEl.dataset.name) {
-        return playerOneData[0].gameboard.placeShip(ship, coordinates, axis);
+        return playerTwoData[0].gameboard.placeShip(ship, coordinates, axis);
       }
     }
   }

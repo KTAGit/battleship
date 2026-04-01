@@ -3,7 +3,7 @@ import carrier from "../assets/carrier.png";
 import destroyer from "../assets/destroyer.png";
 import submarine from "../assets/submarine.png";
 import patrolBoat from "../assets/patrol-boat.png";
-import { checkShipPlacement } from "./controller";
+import { checkShipPlacement, placeShipForPlayer } from "./controller";
 
 // Array containing all fleet ship image sources
 const fleet = [carrier, battleship, destroyer, submarine, patrolBoat];
@@ -55,7 +55,14 @@ function rotateShip(e) {
   let y = Number(e.target.dataset.y);
   let length = Number(e.target.dataset.length);
   let axis = e.target.dataset.axis;
+  let player = e.target.classList.contains("playerone")
+    ? "playerOne"
+    : "playerTwo";
+
   axis === "x" ? (axis = "y") : (axis = "x");
+
+  let result = placeShipForPlayer(player, e.target, [x, y], axis);
+  if (result === "overlap") return;
   if (checkShipPlacement([x, y], length, axis) === "invalid index") {
     return;
   }

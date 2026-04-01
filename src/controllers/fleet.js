@@ -12,7 +12,7 @@ const fleetName = [
   ["battleship", 4],
   ["destroyer", 3],
   ["submarine", 3],
-  ["patrolBoat", 2],
+  ["patrol-boat", 2],
 ];
 
 // DOM references for player fleet containers and ship layers

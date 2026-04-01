@@ -1,7 +1,8 @@
-import { Ship, Player, Gameboard } from "../logic";
+import { Ship, Player } from "../logic";
 
-// Initialize a new game immediately with two players
-let playerOne, playerTwo;
+// Stores each player's instance and their ships
+let playerOneData;
+let playerTwoData;
 // Keeps track of whose turn it is ("playerOne" | "playerTwo" | null for start)
 export let trackTurn = null;
 
@@ -23,45 +24,35 @@ function generateShips() {
   return [carrier, battleship, destroyer, submarine, patrolBoat];
 }
 
-/**
- * Initializes a new game:
- * - Creates players
- * - Generates ships for both players
- * - Places ships on predefined coordinates and orientations
- */
+// Initializes game state by creating players and assigning ships
 export function initiateNewGame(playerOneName, PlayerTwoName) {
   const [playerOne, playerTwo] = createPlayers(playerOneName, PlayerTwoName);
   const playerOneShips = generateShips();
   const playerTwoShips = generateShips();
 
-  // Predefined ship placement coordinates
-  // const coordinates = [
-  //   [2, 2],
-  //   [5, 3],
-  //   [1, 8],
-  //   [3, 4],
-  //   [6, 4],
-  // ];
-
-  // Axis for ship placement ("x" = horizontal, "y" = vertical)
-  // const shipAxis = ["y", "x", "y", "x", "y"];
-
-  // Place ships for player one
-  // for (let i = 0; i < playerOneShips.length; i++) {
-  //   const ship = playerOneShips[i];
-  // playerOne.gameboard.placeShip(ship, coordinates[i], shipAxis[i]);
-  // }
-  // Place ships for player two
-  // for (let i = 0; i < playertwoShips.length; i++) {
-  //   const ship = playertwoShips[i];
-  // playerTwo.gameboard.placeShip(ship, coordinates[i], shipAxis[i]);
-  // }
-  return [
-    [playerOne, playerOneShips],
-    [playerTwo, playerTwoShips],
-  ];
+  playerOneData = [playerOne, playerOneShips];
+  playerTwoData = [playerTwo, playerTwoShips];
 }
 
+// Places a selected ship on the specified player's board
+export function placeShipForPlayer(player, shipEl, coordinates, length, axis) {
+  if (player === "playerOne") {
+    for (const ship of playerOneData[1]) {
+      if (ship.shipName === shipEl.dataset.name) {
+        return playerOneData[0].gameboard.placeShip(ship, coordinates, axis);
+      }
+    }
+  }
+  if (player === "playerTwo") {
+    for (const ship of playerOneData[1]) {
+      if (ship.shipName === shipEl.dataset.name) {
+        return playerOneData[0].gameboard.placeShip(ship, coordinates, axis);
+      }
+    }
+  }
+}
+
+// Validates ship placement within board boundaries
 export function checkShipPlacement(coordinates, length, axis) {
   const positions = [];
   // Generate ship positions based on axis direction
@@ -75,7 +66,7 @@ export function checkShipPlacement(coordinates, length, axis) {
     }
   }
 
-  // Validate positions (within bounds and no overlap)
+  // Validate positions within bounds
   for (let [x, y] of positions) {
     if (x >= 10 || y >= 10 || x < 0 || y < 0) {
       return "invalid index";

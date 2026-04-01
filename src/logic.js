@@ -31,13 +31,14 @@ export class Gameboard {
   }
 
   // Checks if a given coordinate overlaps with any existing ship position
-  isOverlap(coordinates) {
+  isOverlap(coordinates, shipName) {
     for (let i = 0; i < this.shipPositions.length; i++) {
       const obj = this.shipPositions[i];
       for (let j = 0; j < obj.position.length; j++) {
         if (
           obj.position[j][0] === coordinates[0] &&
-          obj.position[j][1] === coordinates[1]
+          obj.position[j][1] === coordinates[1] &&
+          shipName !== obj.shipObj.shipName
         ) {
           return true;
         }
@@ -66,8 +67,17 @@ export class Gameboard {
       if (x >= 10 || y >= 10 || x < 0 || y < 0) {
         return "invalid index";
       }
-      if (this.isOverlap([x, y])) {
+      if (this.isOverlap([x, y], ship.shipName)) {
         return "overlap";
+      }
+    }
+
+    for (let i = 0; i < this.shipPositions.length; i++) {
+      const object = this.shipPositions[i];
+
+      if (object.shipObj.shipName === ship.shipName) {
+        object.position = positions;
+        return;
       }
     }
 

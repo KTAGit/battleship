@@ -2,6 +2,7 @@ import {
   turnController,
   trackTurn,
   checkShipPlacement,
+  placeShipForPlayer,
 } from "../controllers/controller";
 import { draggedFleet } from "../controllers/fleet";
 import { Ship, Player, Gameboard } from "../logic";
@@ -122,9 +123,11 @@ function dragLeave(e) {
 function dragDrop(e) {
   e.preventDefault();
   let correctShip;
+  let x = Number(e.target.dataset.x);
+  let y = Number(e.target.dataset.y);
   if (
     checkShipPlacement(
-      [Number(e.target.dataset.x), Number(e.target.dataset.y)],
+      [x, y],
       draggedFleet.dataset.length,
       draggedFleet.dataset.axis,
     ) === "invalid index"
@@ -178,6 +181,14 @@ function dragDrop(e) {
 
   // Place ship on Player One board
   if (isPlayerOneBoard) {
+    let result = placeShipForPlayer(
+      "playerOne",
+      draggedFleet,
+      [x, y],
+      draggedFleet.dataset.length,
+      draggedFleet.dataset.axis,
+    );
+    if (result === "overlap") return;
     shipLayerPlayerOne.appendChild(draggedFleet);
     draggedFleet.style.position = "absolute";
     draggedFleet.style.left = `${offsetOneX}px`;
@@ -186,6 +197,14 @@ function dragDrop(e) {
 
   // Place ship on Player Two board
   if (isPlayerTwoBoard) {
+    let result = placeShipForPlayer(
+      "playerTwo",
+      draggedFleet,
+      [x, y],
+      draggedFleet.dataset.length,
+      draggedFleet.dataset.axis,
+    );
+    if (result === "overlap") return;
     shipLayerPlayerTwo.appendChild(draggedFleet);
     draggedFleet.style.position = "absolute";
     draggedFleet.style.left = `${offsetTwoX}px`;

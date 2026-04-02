@@ -77,10 +77,10 @@ export function checkShipPlacement(coordinates, length, axis) {
 // Executes an attack on the opposing player's gameboard.
 function attackShip(player, coordinate) {
   if (player === "playerOne") {
-    return playerTwo.gameboard.receiveAttack(coordinate);
+    return playerTwoData[0].gameboard.receiveAttack(coordinate);
   }
   if (player === "playerTwo") {
-    return playerOne.gameboard.receiveAttack(coordinate);
+    return playerOneData[0].gameboard.receiveAttack(coordinate);
   }
 }
 

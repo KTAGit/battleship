@@ -1,12 +1,20 @@
 import { initiateNewGame } from "./controller";
-import { toggleSelection } from "../ui/initialScreenUi";
-import { removeInitialScreen } from "../ui/initialScreenUi";
+import {
+  toggleSelection,
+  removeInitialScreen,
+  generateStartButton,
+} from "../ui/initialScreenUi";
+
+// Tracks the current game mode (player vs player or player vs computer)
 let currentSetting = "playerVsPlayer";
 
+// Retrieves usernames from input fields and starts a new game
+// Falls back to default names if inputs are empty, depending on game mode
 function getUsername() {
   const playerOneUsername = document.querySelector("#player-one-input").value;
   const playerTwoUsername = document.querySelector("#player-two-input").value;
   if (currentSetting === "playerVsPlayer") {
+    // Handle Player vs Player mode with default officer names
     if (!playerOneUsername && !playerTwoUsername) {
       initiateNewGame("OFFICER 1", "OFFICER 2");
     } else if (!playerOneUsername) {
@@ -17,6 +25,7 @@ function getUsername() {
       initiateNewGame(playerOneUsername, playerTwoUsername);
     }
   } else {
+    // Handle Player vs Computer mode with a default name for player one
     if (!playerOneUsername) {
       initiateNewGame("Player 1", playerTwoUsername);
     } else {
@@ -25,20 +34,24 @@ function getUsername() {
   }
 }
 
+// Switches to Player vs Player mode when selected
 document.querySelector("#p-vs-p").addEventListener("click", (e) => {
   e.preventDefault();
   currentSetting = "playerVsPlayer";
   toggleSelection("playerVsPlayer");
 });
 
+// Switches to Player vs Computer mode when selected
 document.querySelector("#p-vs-c").addEventListener("click", (e) => {
   e.preventDefault();
   currentSetting = "playerVsComputer";
   toggleSelection("playerVsComputer");
 });
 
+// Handles form submission: gets usernames, removes intro screen, and shows start button
 document.querySelector("#submit-btn").addEventListener("click", (e) => {
   e.preventDefault();
   getUsername();
   removeInitialScreen();
+  generateStartButton();
 });

@@ -90,6 +90,24 @@ function rotateShip(e) {
   }
 }
 
+// Validates whether both players have placed the required number of ships
+export function finalCheck() {
+  const requirement = 5;
+
+  // Count ships placed on each player's board
+  const pOneShipOnBoardCount = playerOneShipLayer.childElementCount;
+  const pTwoShipOnBoardCount = playerTwoShipLayer.childElementCount;
+
+  // Check if both players meet the required number of ships
+  if (
+    pOneShipOnBoardCount === requirement &&
+    pTwoShipOnBoardCount === requirement
+  ) {
+    return "pass"; // All requirements met
+  }
+  return "fail"; // One or both players are missing ships
+}
+
 // Allow rotating ships by clicking on them (Player One layer)
 playerOneShipLayer.addEventListener("click", (e) => {
   rotateShip(e);

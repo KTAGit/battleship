@@ -4,8 +4,13 @@ import {
   checkShipPlacement,
   placeShipForPlayer,
 } from "../controllers/controller";
-import { draggedFleet } from "../controllers/fleet";
-import { Ship, Player, Gameboard } from "../logic";
+import { draggedFleet, finalCheck } from "../controllers/fleet";
+
+// Tracks whether the game has started to prevent duplicate initialization
+export let isGameStart = false;
+
+// Stores player ship configurations after setup is complete
+let storePlayerShipConfig = [];
 
 // DOM references for both players gameboard containers
 const playerOneContainer = document.querySelector(".playerone-grid");
@@ -65,6 +70,7 @@ function markBoard(action, element) {
 
 // Event listener for Player One's board.
 playerOneContainer.addEventListener("click", (e) => {
+  if (isGameStart === false) return;
   if (trackTurn === "playerTwo") {
     if (e.target.classList.contains("grid-cell")) {
       const x = Number(e.target.dataset.x);
@@ -76,11 +82,41 @@ playerOneContainer.addEventListener("click", (e) => {
 
 // Event listener for Player Two's board.
 playeTwoContainer.addEventListener("click", (e) => {
+  if (isGameStart === false) return;
   if (trackTurn === null || trackTurn === "playerOne") {
     if (e.target.classList.contains("grid-cell")) {
       const x = Number(e.target.dataset.x);
       const y = Number(e.target.dataset.y);
       markBoard(turnController([x, y]), e.target);
+    }
+  }
+});
+
+// Listens for clicks in the main section and handles the start button logic
+document.querySelector(".main-section").addEventListener("click", (e) => {
+  // Check if the clicked element is the start button
+  if (e.target.classList.contains("start-button")) {
+    // Prevent starting the game if it has already begun
+    if (isGameStart === true) return;
+
+    // Validate final setup before starting the game
+    let result = finalCheck();
+
+    if (result === "pass") {
+      // Mark game as started and update button state
+      isGameStart = true;
+      document.querySelector(".start-button").classList.remove("ready");
+
+      // Remove ship configuration layers from the UI
+      let playerOneConfig = document
+        .querySelector(".ship-layer-pleyerone")
+        .remove();
+      let playerTwoConfig = document
+        .querySelector(".ship-layer-pleyertwo")
+        .remove();
+
+      // Store removed configurations for later use
+      storePlayerShipConfig = [playerOneConfig, playerTwoConfig];
     }
   }
 });
@@ -110,7 +146,7 @@ function dragEnter(e) {
 function dragLeave(e) {
   if (e.target.className === "grid-cell") {
     const gridCellElement = e.target;
-    gridCellElement.style.boxShadow = "none";
+    gridCellElement.style.boxShadow = "";
   }
 }
 
@@ -132,7 +168,7 @@ function dragDrop(e) {
       draggedFleet.dataset.axis,
     ) === "invalid index"
   ) {
-    e.target.style.boxShadow = "none";
+    e.target.style.boxShadow = "";
     return;
   }
   draggedFleet.dataset.x = e.target.dataset.x;
@@ -154,7 +190,7 @@ function dragDrop(e) {
   if (!cell) return;
 
   // Remove highlight
-  cell.style.boxShadow = "none";
+  cell.style.boxShadow = "";
 
   // Stop if wrong ship
   if (!correctShip) return;
@@ -208,7 +244,10 @@ function dragDrop(e) {
     draggedFleet.style.left = `${offsetTwoX}px`;
     draggedFleet.style.top = `${offsetTwoY}px`;
   }
-  e.target.style.boxShadow = "none";
+  e.target.style.boxShadow = "";
+  if (finalCheck() === "pass") {
+    document.querySelector(".start-button").classList.add("ready");
+  }
 }
 
 // Select both player boards

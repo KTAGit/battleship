@@ -59,9 +59,11 @@ function renderPlayersGrid() {
 
 // Updates a grid cell visually based on attack result.
 function markBoard(action, element) {
-  if (action === "hit") {
+  if (action === "hit" || action === "gameover") {
     element.classList.add("hit");
     element.textContent = "✕";
+    if (action === "gameover") {
+    }
   } else if (action === "miss") {
     element.classList.add("miss");
     element.textContent = "◦";

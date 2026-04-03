@@ -605,3 +605,236 @@ nav {
       0 0 10px #64ffdbb7;
   }
 }
+
+.victory-section {
+  z-index: 12;
+  width: fit-content;
+  background-color: #0e1f35;
+  border: 1px solid #64ffdb4b;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  box-shadow: 0 0 25px 1px #64ffdb28;
+  background: linear-gradient(#3bffd106, #3dfdd005), #11243c;
+}
+
+.message-container p {
+  font-family: "Space Grotesk", sans-serif;
+  color: #bacbc4;
+  text-align: center;
+  font-size: 1.2rem;
+  margin-top: 0;
+}
+
+.stats-container {
+  display: flex;
+  margin-top: 10px;
+  justify-content: space-evenly;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.stats-container div {
+  width: 120px;
+  height: 70px;
+  background-color: #0a192fad;
+  font-family: "Space Grotesk", sans-serif;
+  border-radius: 5px;
+  border: 1px solid #7f8e8a24;
+  margin-left: 15px;
+  margin-right: 15px;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+.stats-container div .label {
+  font-size: 0.7rem;
+  text-align: center;
+  color: #7f8e8a;
+  margin-bottom: 3px;
+}
+
+.enemy-destroyed-container {
+  position: relative;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-left: 160px;
+  padding-right: 160px;
+  color: white;
+}
+
+.enemy-destroyed-container::before,
+.enemy-destroyed-container::after {
+  content: "";
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #2bffcd;
+}
+
+/* Top-left */
+.enemy-destroyed-container::before {
+  top: 0;
+  left: 0;
+  border-right: none;
+  border-bottom: none;
+}
+
+/* Bottom-right */
+.enemy-destroyed-container::after {
+  bottom: 0;
+  right: 0;
+  border-left: none;
+  border-top: none;
+}
+
+.enemy-destroyed-container span::before,
+.enemy-destroyed-container span::after {
+  content: "";
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #2bffcd;
+}
+
+/* Top-right */
+.enemy-destroyed-container span::before {
+  top: 0;
+  right: 0;
+  border-left: none;
+  border-bottom: none;
+}
+
+/* Bottom-left */
+.enemy-destroyed-container span::after {
+  bottom: 0;
+  left: 0;
+  border-right: none;
+  border-top: none;
+}
+
+.enemy-destroyed-container p {
+  color: white;
+  font-family: "Space Grotesk", sans-serif;
+  font-weight: bolder;
+  word-spacing: 1px;
+  font-size: 2.5rem;
+  margin: 0;
+  text-align: center;
+  line-height: 45px;
+  text-shadow:
+    0 0 2px #0a192f,
+    0 0 3px #64ffdb5e,
+    0 0 15px #64ffdb5e;
+}
+
+.button-container {
+  display: flex;
+  gap: 20px;
+  margin-top: 20px;
+  margin-bottom: 50px;
+}
+
+.hit-count {
+  color: white;
+  margin: 0;
+  font-family: "Space Grotesk", sans-serif;
+  font-weight: bold;
+  font-size: 1.3rem;
+}
+
+.miss-count {
+  color: white;
+  margin: 0;
+  font-family: "Space Grotesk", sans-serif;
+  font-weight: bold;
+  font-size: 1.3rem;
+}
+.time {
+  color: white;
+  margin: 0;
+  font-family: "Space Grotesk", sans-serif;
+  font-weight: bold;
+  font-size: 1.3rem;
+}
+.accuracy-data {
+  color: #64ffdb;
+  margin: 0;
+  font-family: "Space Grotesk", sans-serif;
+  font-weight: bold;
+  font-size: 1.3rem;
+}
+
+.button-container button {
+  width: 250px;
+  height: 60px;
+  border-radius: 10px;
+  font-family: "Space Grotesk", sans-serif;
+  font-weight: bold;
+  font-size: 1rem;
+  border: 1px solid #7f8e8a24;
+  letter-spacing: 2px;
+}
+
+.play-again-btn {
+  background-color: #64ffdb;
+}
+
+.play-again-btn:hover {
+  cursor: pointer;
+  box-shadow: 0 0 15px 1px #64ffdb28;
+}
+
+.restart-new-game-btn {
+  background-color: #18263f;
+  color: white;
+}
+
+.restart-new-game-btn:hover {
+  cursor: pointer;
+  box-shadow: 0 0 15px 1px #7f8e8a24;
+}
+
+.victory-badge-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.fleet-admiral {
+  position: relative;
+  font-family: "Space Grotesk", sans-serif;
+  font-weight: lighter;
+  font-size: 0.8rem;
+  letter-spacing: 1px;
+  color: #64ffdb;
+  padding: 10px;
+  background-color: #04122a;
+  border-radius: 50px;
+  border: solid 0.5px #64ffdb;
+  margin-top: 0;
+  margin-bottom: 0;
+  top: -27px;
+}
+
+.badge-wrapper {
+  width: 100px;
+  height: 100px;
+  margin-top: 60px;
+  background-color: #2a3e52;
+  border: solid 3px #64ffdb;
+  border-radius: 50%;
+  box-shadow: 0 0 25px 1px #64ffdb6f;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.medal-icon {
+  width: 50px;
+  height: 50px;
+}

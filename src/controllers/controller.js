@@ -78,7 +78,6 @@ export function checkShipPlacement(coordinates, length, axis) {
 function attackShip(player, coordinate) {
   if (player === "playerOne") {
     const result = playerTwoData[0].gameboard.receiveAttack(coordinate);
-    console.log(playerTwoData[0]);
     if (result[0] === "gameover") {
       const stats = calculateStats(playerTwoData[0]);
       result.push(stats);
@@ -88,7 +87,6 @@ function attackShip(player, coordinate) {
   }
   if (player === "playerTwo") {
     const result = playerOneData[0].gameboard.receiveAttack(coordinate);
-    console.log(playerOneData[0]);
     if (result[0] === "gameover") {
       const stats = calculateStats(playerOneData[0]);
       result.push(stats);
@@ -102,12 +100,16 @@ function attackShip(player, coordinate) {
 export function turnController(coordinate) {
   if (trackTurn === null || trackTurn === "playerOne") {
     const result = attackShip("playerOne", coordinate);
-    trackTurn = "playerTwo";
+    if (result !== "invalid coordinates") {
+      trackTurn = "playerTwo";
+    }
     return result;
   }
   if (trackTurn === "playerTwo") {
     const result = attackShip("playerTwo", coordinate);
-    trackTurn = "playerOne";
+    if (result !== "invalid coordinates") {
+      trackTurn = "playerOne";
+    }
     return result;
   }
 }

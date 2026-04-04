@@ -5,6 +5,13 @@ import {
   placeShipForPlayer,
 } from "../controllers/controller";
 import { draggedFleet, finalCheck } from "../controllers/fleet";
+import { announceVictory } from "./victory";
+
+// Timer state variables (formatted as HH:MM:SS) and interval reference
+export let sec = "00";
+export let min = "00";
+export let hour = "00";
+export let intervalId;
 
 // Tracks whether the game has started to prevent duplicate initialization
 export let isGameStart = false;
@@ -59,10 +66,11 @@ function renderPlayersGrid() {
 
 // Updates a grid cell visually based on attack result.
 function markBoard(action, element) {
-  if (action === "hit" || action === "gameover") {
+  if (action === "hit" || action[0] === "gameover") {
     element.classList.add("hit");
     element.textContent = "✕";
-    if (action === "gameover") {
+    if (action[0] === "gameover") {
+      announceVictory(action[2], action[1]);
     }
   } else if (action === "miss") {
     element.classList.add("miss");
@@ -108,7 +116,8 @@ document.querySelector(".main-section").addEventListener("click", (e) => {
       // Mark game as started and update button state
       isGameStart = true;
       document.querySelector(".start-button").classList.remove("ready");
-
+      startTimer();
+      // document.querySelector(".start-button").textContent = ;
       // Remove ship configuration layers from the UI
       let playerOneConfig = document
         .querySelector(".ship-layer-pleyerone")
@@ -250,6 +259,22 @@ function dragDrop(e) {
   if (finalCheck() === "pass") {
     document.querySelector(".start-button").classList.add("ready");
   }
+}
+
+// Starts a game timer that updates every second and displays elapsed time in the UI
+function startTimer() {
+  const startTime = Date.now();
+
+  intervalId = setInterval(() => {
+    const elapsed = Math.floor((Date.now() - startTime) / 1000);
+
+    sec = String(elapsed % 60).padStart(2, "0");
+    min = String(Math.floor(elapsed / 60) % 60).padStart(2, "0");
+    hour = String(Math.floor(elapsed / 3600)).padStart(2, "0");
+
+    document.querySelector(".start-button").textContent =
+      `${hour}:${min}:${sec}`;
+  }, 1000);
 }
 
 // Select both player boards

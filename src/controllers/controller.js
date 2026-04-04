@@ -77,10 +77,24 @@ export function checkShipPlacement(coordinates, length, axis) {
 // Executes an attack on the opposing player's gameboard.
 function attackShip(player, coordinate) {
   if (player === "playerOne") {
-    return playerTwoData[0].gameboard.receiveAttack(coordinate);
+    const result = playerTwoData[0].gameboard.receiveAttack(coordinate);
+    console.log(playerTwoData[0]);
+    if (result[0] === "gameover") {
+      const stats = calculateStats(playerTwoData[0]);
+      result.push(stats);
+      result.push(playerOneData[0].playerName);
+    }
+    return result;
   }
   if (player === "playerTwo") {
-    return playerOneData[0].gameboard.receiveAttack(coordinate);
+    const result = playerOneData[0].gameboard.receiveAttack(coordinate);
+    console.log(playerOneData[0]);
+    if (result[0] === "gameover") {
+      const stats = calculateStats(playerOneData[0]);
+      result.push(stats);
+      result.push(playerTwoData[0].playerName);
+    }
+    return result;
   }
 }
 
@@ -96,4 +110,14 @@ export function turnController(coordinate) {
     trackTurn = "playerOne";
     return result;
   }
+}
+
+// Calculates player performance stats: hits, misses, and accuracy percentage
+function calculateStats(player) {
+  console.log(player);
+  const missedShots = player.gameboard.missedShot.length;
+  const hits = player.gameboard.storeHit.length;
+  const totalMove = missedShots + hits;
+  const accuracy = (hits / totalMove) * 100;
+  return [hits, missedShots, accuracy];
 }

@@ -129,9 +129,7 @@ export class Gameboard {
 
           // Return result of the attack
           if (this.isGameOver()) {
-            console.log(this.shipPositions);
-            console.log("gameover");
-            return "gameover";
+            return ["gameover"];
           } else {
             return "hit";
           }

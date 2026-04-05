@@ -1,8 +1,8 @@
 import { Ship, Player } from "../logic";
 
 // Stores each player's instance and their ships
-let playerOneData;
-let playerTwoData;
+export let playerOneData;
+export let playerTwoData;
 // Keeps track of whose turn it is ("playerOne" | "playerTwo" | null for start)
 export let trackTurn = null;
 
@@ -100,16 +100,14 @@ function attackShip(player, coordinate) {
 export function turnController(coordinate) {
   if (trackTurn === null || trackTurn === "playerOne") {
     const result = attackShip("playerOne", coordinate);
-    if (result !== "invalid coordinates") {
-      trackTurn = "playerTwo";
-    }
+    if (result === "invalid coordinates") return;
+    trackTurn = "playerTwo";
     return result;
   }
   if (trackTurn === "playerTwo") {
     const result = attackShip("playerTwo", coordinate);
-    if (result !== "invalid coordinates") {
-      trackTurn = "playerOne";
-    }
+    if (result === "invalid coordinates") return;
+    trackTurn = "playerOne";
     return result;
   }
 }

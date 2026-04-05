@@ -3,6 +3,8 @@ import {
   trackTurn,
   checkShipPlacement,
   placeShipForPlayer,
+  playerOneData,
+  playerTwoData,
 } from "../controllers/controller";
 import { draggedFleet, finalCheck } from "../controllers/fleet";
 import { announceVictory } from "./victory";
@@ -22,6 +24,7 @@ let storePlayerShipConfig = [];
 // DOM references for both players gameboard containers
 const playerOneContainer = document.querySelector(".playerone-grid");
 const playeTwoContainer = document.querySelector(".playertwo-grid");
+const mainSection = document.querySelector(".main-section");
 
 /**
  * Generates a 10x10 grid (100 cells).
@@ -86,6 +89,7 @@ playerOneContainer.addEventListener("click", (e) => {
       const x = Number(e.target.dataset.x);
       const y = Number(e.target.dataset.y);
       markBoard(turnController([x, y]), e.target);
+      renderTurn(playerOneData[0].playerName);
     }
   }
 });
@@ -98,12 +102,13 @@ playeTwoContainer.addEventListener("click", (e) => {
       const x = Number(e.target.dataset.x);
       const y = Number(e.target.dataset.y);
       markBoard(turnController([x, y]), e.target);
+      renderTurn(playerTwoData[0].playerName);
     }
   }
 });
 
 // Listens for clicks in the main section and handles the start button logic
-document.querySelector(".main-section").addEventListener("click", (e) => {
+mainSection.addEventListener("click", (e) => {
   // Check if the clicked element is the start button
   if (e.target.classList.contains("start-button")) {
     // Prevent starting the game if it has already begun
@@ -117,6 +122,7 @@ document.querySelector(".main-section").addEventListener("click", (e) => {
       isGameStart = true;
       document.querySelector(".start-button").classList.remove("ready");
       startTimer();
+      renderTurn(playerOneData[0].playerName);
       // document.querySelector(".start-button").textContent = ;
       // Remove ship configuration layers from the UI
       let playerOneConfig = document
@@ -275,6 +281,17 @@ function startTimer() {
     document.querySelector(".start-button").textContent =
       `${hour}:${min}:${sec}`;
   }, 1000);
+}
+
+// Displays the current player's turn in the UI.
+export function renderTurn(playerName) {
+  if (!document.querySelector(".player-turn")) {
+    const el = document.createElement("p");
+    el.classList.add("player-turn");
+    mainSection.prepend(el);
+  }
+  const playerTurn = document.querySelector(".player-turn");
+  playerTurn.textContent = `${playerName}'s Turn`;
 }
 
 // Select both player boards

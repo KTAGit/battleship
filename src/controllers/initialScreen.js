@@ -4,6 +4,7 @@ import {
   removeInitialScreen,
   generateStartButton,
 } from "../ui/initialScreenUi";
+import { renderTurn } from "../ui/renderGameboard";
 
 // Tracks the current game mode (player vs player or player vs computer)
 let currentSetting = "playerVsPlayer";
@@ -54,4 +55,5 @@ document.querySelector("#submit-btn").addEventListener("click", (e) => {
   getUsername();
   removeInitialScreen();
   generateStartButton();
+  renderTurn("Place Your Fleet");
 });

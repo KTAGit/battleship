@@ -1,4 +1,5 @@
 import { Ship, Player } from "../logic";
+import { renderTurn } from "../ui/renderGameboard";
 
 // Stores each player's instance and their ships
 export let playerOneData;
@@ -102,12 +103,14 @@ export function turnController(coordinate) {
     const result = attackShip("playerOne", coordinate);
     if (result === "invalid coordinates") return;
     trackTurn = "playerTwo";
+    renderTurn(playerTwoData[0].playerName);
     return result;
   }
   if (trackTurn === "playerTwo") {
     const result = attackShip("playerTwo", coordinate);
     if (result === "invalid coordinates") return;
     trackTurn = "playerOne";
+    renderTurn(playerOneData[0].playerName);
     return result;
   }
 }

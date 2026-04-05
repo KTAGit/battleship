@@ -69,6 +69,8 @@ function renderPlayersGrid() {
 
 // Updates a grid cell visually based on attack result.
 function markBoard(action, element) {
+  console.log(action, element);
+  if (!action) return;
   if (action === "hit" || action[0] === "gameover") {
     element.classList.add("hit");
     element.textContent = "✕";
@@ -89,7 +91,6 @@ playerOneContainer.addEventListener("click", (e) => {
       const x = Number(e.target.dataset.x);
       const y = Number(e.target.dataset.y);
       markBoard(turnController([x, y]), e.target);
-      renderTurn(playerOneData[0].playerName);
     }
   }
 });
@@ -102,7 +103,6 @@ playeTwoContainer.addEventListener("click", (e) => {
       const x = Number(e.target.dataset.x);
       const y = Number(e.target.dataset.y);
       markBoard(turnController([x, y]), e.target);
-      renderTurn(playerTwoData[0].playerName);
     }
   }
 });
@@ -291,7 +291,9 @@ export function renderTurn(playerName) {
     mainSection.prepend(el);
   }
   const playerTurn = document.querySelector(".player-turn");
-  playerTurn.textContent = `${playerName}'s Turn`;
+  playerName === "Place Your Fleet"
+    ? (playerTurn.textContent = playerName)
+    : (playerTurn.textContent = `${playerName}'s Turn`);
 }
 
 // Select both player boards

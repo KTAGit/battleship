@@ -175,7 +175,9 @@ export function computerPlayer(gameStatus) {
     const targetCell = playerOneGrid.querySelector(
       `[data-x='${randomCoordinate[0]}'][data-y='${randomCoordinate[1]}']`,
     );
-    markBoard(turnController(randomCoordinate), targetCell);
+    setTimeout(() => {
+      markBoard(turnController(randomCoordinate), targetCell);
+    }, 1000);
   }
 }
 

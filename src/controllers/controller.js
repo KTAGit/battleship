@@ -1,5 +1,11 @@
 import { Ship, Player } from "../logic";
-import { renderTurn } from "../ui/renderGameboard";
+import {
+  renderTurn,
+  placeShipForComputer,
+  markBoard,
+} from "../ui/renderGameboard";
+import { finalCheck } from "./fleet";
+import { currentSetting } from "./initialScreen";
 
 // Stores each player's instance and their ships
 export let playerOneData;
@@ -44,7 +50,7 @@ export function placeShipForPlayer(player, shipEl, coordinates, axis) {
       }
     }
   }
-  if (player === "playerTwo") {
+  if (player === "playerTwo" || player === "computer") {
     for (const ship of playerTwoData[1]) {
       if (ship.shipName === shipEl.dataset.name) {
         return playerTwoData[0].gameboard.placeShip(ship, coordinates, axis);
@@ -104,6 +110,9 @@ export function turnController(coordinate) {
     if (result === "invalid coordinates") return;
     trackTurn = "playerTwo";
     renderTurn(playerTwoData[0].playerName);
+    if (currentSetting === "playerVsComputer") {
+      computerPlayer("computer's turn");
+    }
     return result;
   }
   if (trackTurn === "playerTwo") {
@@ -117,10 +126,73 @@ export function turnController(coordinate) {
 
 // Calculates player performance stats: hits, misses, and accuracy percentage
 function calculateStats(player) {
-  console.log(player);
   const missedShots = player.gameboard.missedShot.length;
   const hits = player.gameboard.storeHit.length;
   const totalMove = missedShots + hits;
   const accuracy = (hits / totalMove) * 100;
   return [hits, missedShots, accuracy];
+}
+
+// Handles computer behavior for ship placement and turn-based attack generation
+export function computerPlayer(gameStatus) {
+  const playerOneBoard = playerOneData[0].gameboard;
+  const computerPlayerBoard = playerTwoData[0].gameboard;
+  const ignoreCoordinate = [
+    ...playerOneBoard.missedShot,
+    ...playerOneBoard.storeHit,
+  ];
+  const playerTwoShipPositions = computerPlayerBoard.shipPositions;
+  const ignoreShipCoordinate = [];
+
+  for (let i = 0; i < playerTwoShipPositions.length; i++) {
+    const object = playerTwoShipPositions[i];
+    ignoreShipCoordinate.push(...object.position);
+  }
+
+  if (gameStatus === "place your fleet") {
+    const fleetCount = playerTwoData[1].length;
+    let countGen = 0;
+    var axis = ["y", "x"];
+    while (countGen < fleetCount) {
+      let coordinate = generateCoordinate(ignoreShipCoordinate);
+      let ship = playerTwoData[1][countGen];
+      let randomAxis = axis[Math.random() < 0.5 ? 0 : 1];
+      let result = playerTwoData[0].gameboard.placeShip(
+        ship,
+        coordinate,
+        randomAxis,
+      );
+
+      if (result === "invalid index" || result === "overlap") continue;
+      placeShipForComputer(ship, coordinate, randomAxis);
+      countGen++;
+    }
+  }
+
+  if (gameStatus === "computer's turn") {
+    const playerOneGrid = document.querySelector(".playerone-grid");
+    const randomCoordinate = generateCoordinate(ignoreCoordinate);
+    const targetCell = playerOneGrid.querySelector(
+      `[data-x='${randomCoordinate[0]}'][data-y='${randomCoordinate[1]}']`,
+    );
+    markBoard(turnController(randomCoordinate), targetCell);
+  }
+}
+
+// Returns a random valid grid coordinate not included in the ignore list
+function generateCoordinate(ignoreCoordinate) {
+  let coordinate;
+  let isExcluded;
+  do {
+    const x = Math.floor(Math.random() * (9 - 0 + 1)) + 0;
+    const y = Math.floor(Math.random() * (9 - 0 + 1)) + 0;
+    coordinate = [x, y];
+
+    isExcluded = ignoreCoordinate.some(
+      (i) => i[0] === coordinate[0] && i[1] === coordinate[1],
+    );
+  } while (isExcluded);
+  {
+    return coordinate;
+  }
 }

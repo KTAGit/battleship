@@ -80,7 +80,7 @@ export class Gameboard {
         return;
       }
     }
-
+    // console.log("FROM LOGIC", positions);
     // Store the ship and its valid positions
     this.shipPositions.push({
       shipObj: ship,

@@ -6,7 +6,7 @@ import {
   playerOneData,
   playerTwoData,
 } from "../controllers/controller";
-import { draggedFleet, finalCheck } from "../controllers/fleet";
+import { draggedFleet, finalCheck, rotateShip } from "../controllers/fleet";
 import { announceVictory } from "./victory";
 
 // Timer state variables (formatted as HH:MM:SS) and interval reference
@@ -68,8 +68,7 @@ function renderPlayersGrid() {
 }
 
 // Updates a grid cell visually based on attack result.
-function markBoard(action, element) {
-  console.log(action, element);
+export function markBoard(action, element) {
   if (!action) return;
   if (action === "hit" || action[0] === "gameover") {
     element.classList.add("hit");
@@ -80,6 +79,34 @@ function markBoard(action, element) {
   } else if (action === "miss") {
     element.classList.add("miss");
     element.textContent = "◦";
+  }
+}
+
+// Matches a ship element, rotates if needed, places it on the board, and stores config when all ships are placed
+export function placeShipForComputer(shipObj, coordinate, axis) {
+  const storeShip = [];
+  for (let i = 0; i <= 4; i++) {
+    const shipEl = document.querySelector(`.img-${i}.playertwo`);
+    storeShip.push(shipEl);
+  }
+
+  for (const ship of storeShip) {
+    if (ship.dataset.name === shipObj.shipName) {
+      if (ship.dataset.axis === "x" && axis === "y") {
+        rotateShipForComputer(ship);
+        ship.dataset.axis = axis;
+      }
+      appendShipForComputer(ship, coordinate);
+    }
+  }
+  const shipLayerChildCount = document.querySelector(
+    ".ship-layer-pleyertwo",
+  ).childElementCount;
+  if (shipLayerChildCount === 5) {
+    let playerTwoConfig = document
+      .querySelector(".ship-layer-pleyertwo")
+      .remove();
+    storePlayerShipConfig.push(playerTwoConfig);
   }
 }
 
@@ -123,14 +150,17 @@ mainSection.addEventListener("click", (e) => {
       document.querySelector(".start-button").classList.remove("ready");
       startTimer();
       renderTurn(playerOneData[0].playerName);
-      // document.querySelector(".start-button").textContent = ;
+
       // Remove ship configuration layers from the UI
       let playerOneConfig = document
         .querySelector(".ship-layer-pleyerone")
         .remove();
-      let playerTwoConfig = document
-        .querySelector(".ship-layer-pleyertwo")
-        .remove();
+      let playerTwoConfig;
+      if (document.querySelector(".ship-layer-pleyertwo")) {
+        playerTwoConfig = document
+          .querySelector(".ship-layer-pleyertwo")
+          .remove();
+      }
 
       // Store removed configurations for later use
       storePlayerShipConfig = [playerOneConfig, playerTwoConfig];
@@ -281,6 +311,56 @@ function startTimer() {
     document.querySelector(".start-button").textContent =
       `${hour}:${min}:${sec}`;
   }, 1000);
+}
+
+// Positions a computer ship element on the board using grid coordinates and absolute offsets
+function appendShipForComputer(ship, coordinate) {
+  const playerTwoBoard = document.querySelector(".playertwo-gameboard-wrapper");
+  const playerTwoGrid = document.querySelector(".playertwo-grid");
+  const shipLayerPlayerTwo = playerTwoBoard.querySelector(
+    ".ship-layer-pleyertwo",
+  );
+
+  const cell = playerTwoGrid.querySelector(
+    `[data-x='${coordinate[0]}'][data-y='${coordinate[1]}']`,
+  );
+
+  const rectTwo = playerTwoBoard.getBoundingClientRect();
+  const cellRect = cell.getBoundingClientRect();
+
+  const offsetTwoX = cellRect.left - rectTwo.left;
+  const offsetTwoY = cellRect.top - rectTwo.top;
+
+  shipLayerPlayerTwo.appendChild(ship);
+  ship.style.position = "absolute";
+  ship.style.left = `${offsetTwoX}px`;
+  ship.style.top = `${offsetTwoY}px`;
+}
+
+// Toggles ship rotation between horizontal and vertical while adjusting transform origin for alignment only for computer
+function rotateShipForComputer(e) {
+  if (e.style.rotate === "90deg") {
+    e.style.rotate = "0deg";
+    e.dataset.axis = "x";
+  } else {
+    if (e.classList.contains("img-0")) {
+      e.style.transformOrigin = "10% 50%";
+    }
+    if (e.classList.contains("img-1")) {
+      e.style.transformOrigin = "13% 50%";
+    }
+    if (e.classList.contains("img-2")) {
+      e.style.transformOrigin = "17% 50%";
+    }
+    if (e.classList.contains("img-3")) {
+      e.style.transformOrigin = "17% 53%";
+    }
+    if (e.classList.contains("img-4")) {
+      e.style.transformOrigin = "25% 50%";
+    }
+    e.style.rotate = "90deg";
+    e.dataset.axis = "y";
+  }
 }
 
 // Displays the current player's turn in the UI.

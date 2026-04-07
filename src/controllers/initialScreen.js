@@ -1,4 +1,4 @@
-import { initiateNewGame } from "./controller";
+import { initiateNewGame, computerPlayer } from "./controller";
 import {
   toggleSelection,
   removeInitialScreen,
@@ -7,7 +7,7 @@ import {
 import { renderTurn } from "../ui/renderGameboard";
 
 // Tracks the current game mode (player vs player or player vs computer)
-let currentSetting = "playerVsPlayer";
+export let currentSetting;
 
 // Retrieves usernames from input fields and starts a new game
 // Falls back to default names if inputs are empty, depending on game mode
@@ -35,6 +35,13 @@ function getUsername() {
   }
 }
 
+function checkGameMode() {
+  const gameMode = currentSetting;
+  if (gameMode === "playerVsComputer") {
+    computerPlayer("place your fleet");
+  }
+}
+
 // Switches to Player vs Player mode when selected
 document.querySelector("#p-vs-p").addEventListener("click", (e) => {
   e.preventDefault();
@@ -56,4 +63,5 @@ document.querySelector("#submit-btn").addEventListener("click", (e) => {
   removeInitialScreen();
   generateStartButton();
   renderTurn("Place Your Fleet");
+  checkGameMode();
 });

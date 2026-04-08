@@ -29,6 +29,8 @@ export function announceVictory(playerName, stats) {
   victoryPopUp.querySelector(".time").textContent = time;
   const tint = document.querySelector(".tint");
   tint.style.display = "flex";
+  const form = document.querySelector(".initial-screen");
+  form.style.display = "none";
   tint.appendChild(victoryPopUp);
 }
 
@@ -46,6 +48,14 @@ document.querySelector(".tint").addEventListener("click", (e) => {
   if (e.target.classList.contains("play-again-btn")) {
     console.log("clicked");
     restartGame();
+  }
+  if (e.target.classList.contains("restart-new-game-btn")) {
+    restartGame();
+    const tint = document.querySelector(".tint");
+    const form = document.querySelector(".initial-screen");
+    tint.style.display = "flex";
+    form.style.display = "flex";
+    victoryPopUp.remove();
   }
 });
 
@@ -104,3 +114,5 @@ function appendShipLayer(playerOneShipLayer, playerTwoShipLayer) {
   playerOneWrapper.insertBefore(playerOneShipLayer, playerOneFleetContainer);
   playerTwoWrapper.insertBefore(playerTwoShipLayer, playerTwoFleetContainer);
 }
+
+document.query;

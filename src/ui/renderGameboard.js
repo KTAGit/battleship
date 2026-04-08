@@ -53,7 +53,8 @@ function generateGrid() {
 export function renderPlayersGrid() {
   const playerOneGrids = generateGrid();
   const playerTwoGrids = generateGrid();
-
+  playerOneContainer.replaceChildren();
+  playeTwoContainer.replaceChildren();
   // Render Player One's grid
   for (let i = 0; i < playerOneGrids.length; i++) {
     const element = playerOneGrids[i];

@@ -39,6 +39,7 @@ export function removeInitialScreen() {
 
 // Creates and inserts a "Start Game" button at the top of the main section
 export function generateStartButton() {
+  if (document.querySelector(".start-button")) return;
   const mainSection = document.querySelector(".main-section");
   const startBtn = document.createElement("button");
 

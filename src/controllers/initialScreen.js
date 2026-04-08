@@ -4,10 +4,10 @@ import {
   removeInitialScreen,
   generateStartButton,
 } from "../ui/initialScreenUi";
-import { renderTurn } from "../ui/renderGameboard";
+import { renderTurn, renderPlayersGrid } from "../ui/renderGameboard";
 
 // Tracks the current game mode (player vs player or player vs computer)
-export let currentSetting;
+export let currentSetting = "playerVsPlayer";
 
 // Retrieves usernames from input fields and starts a new game
 // Falls back to default names if inputs are empty, depending on game mode
@@ -60,6 +60,7 @@ document.querySelector("#p-vs-c").addEventListener("click", (e) => {
 document.querySelector("#submit-btn").addEventListener("click", (e) => {
   e.preventDefault();
   getUsername();
+  renderPlayersGrid();
   removeInitialScreen();
   generateStartButton();
   renderTurn("Place Your Fleet");

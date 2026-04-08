@@ -18,14 +18,14 @@ const fleetName = [
 // DOM references for player fleet containers and ship layers
 const playerOneContainer = document.querySelector(".playerone-fleet-container");
 const playerTwoContainer = document.querySelector(".playertwo-fleet-container");
-const playerOneShipLayer = document.querySelector(".ship-layer-pleyerone");
-const playerTwoShipLayer = document.querySelector(".ship-layer-pleyertwo");
+const playerOneShipLayer = document.querySelector(".ship-layer-playerone");
+const playerTwoShipLayer = document.querySelector(".ship-layer-playertwo");
 
 // Stores the currently dragged ship element
 export let draggedFleet = null;
 
 // Generate fleet ships and render them in the container
-function generateFleets(player, container) {
+export function generateFleets(player, container) {
   fleet.forEach((src, index) => {
     const img = document.createElement("img");
     const imgWrapper = document.createElement("div");

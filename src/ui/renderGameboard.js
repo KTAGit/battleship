@@ -19,7 +19,7 @@ export let intervalId;
 export let isGameStart = false;
 
 // Stores player ship configurations after setup is complete
-let storePlayerShipConfig = [];
+export let storePlayerShipConfig = [];
 
 // DOM references for both players gameboard containers
 const playerOneContainer = document.querySelector(".playerone-grid");
@@ -50,7 +50,7 @@ function generateGrid() {
 }
 
 // Renders both players grids onto the DOM.
-function renderPlayersGrid() {
+export function renderPlayersGrid() {
   const playerOneGrids = generateGrid();
   const playerTwoGrids = generateGrid();
 
@@ -100,11 +100,11 @@ export function placeShipForComputer(shipObj, coordinate, axis) {
     }
   }
   const shipLayerChildCount = document.querySelector(
-    ".ship-layer-pleyertwo",
+    ".ship-layer-playertwo",
   ).childElementCount;
   if (shipLayerChildCount === 5) {
     let playerTwoConfig = document
-      .querySelector(".ship-layer-pleyertwo")
+      .querySelector(".ship-layer-playertwo")
       .remove();
     storePlayerShipConfig.push(playerTwoConfig);
   }
@@ -152,14 +152,12 @@ mainSection.addEventListener("click", (e) => {
       renderTurn(playerOneData[0].playerName);
 
       // Remove ship configuration layers from the UI
-      let playerOneConfig = document
-        .querySelector(".ship-layer-pleyerone")
-        .remove();
+      let playerOneConfig = document.querySelector(".ship-layer-playerone");
+      playerOneConfig.remove();
       let playerTwoConfig;
-      if (document.querySelector(".ship-layer-pleyertwo")) {
-        playerTwoConfig = document
-          .querySelector(".ship-layer-pleyertwo")
-          .remove();
+      if (document.querySelector(".ship-layer-playertwo")) {
+        playerTwoConfig = document.querySelector(".ship-layer-playertwo");
+        playerTwoConfig.remove();
       }
 
       // Store removed configurations for later use
@@ -246,10 +244,10 @@ function dragDrop(e) {
   const playerOneBoard = document.querySelector(".playerone-gameboard-wrapper");
   const playerTwoBoard = document.querySelector(".playertwo-gameboard-wrapper");
   const shipLayerPlayerOne = playerOneBoard.querySelector(
-    ".ship-layer-pleyerone",
+    ".ship-layer-playerone",
   );
   const shipLayerPlayerTwo = playerTwoBoard.querySelector(
-    ".ship-layer-pleyertwo",
+    ".ship-layer-playertwo",
   );
 
   // Get positions for placement
@@ -318,7 +316,7 @@ function appendShipForComputer(ship, coordinate) {
   const playerTwoBoard = document.querySelector(".playertwo-gameboard-wrapper");
   const playerTwoGrid = document.querySelector(".playertwo-grid");
   const shipLayerPlayerTwo = playerTwoBoard.querySelector(
-    ".ship-layer-pleyertwo",
+    ".ship-layer-playertwo",
   );
 
   const cell = playerTwoGrid.querySelector(
@@ -376,6 +374,15 @@ export function renderTurn(playerName) {
     : (playerTurn.textContent = `${playerName}'s Turn`);
 }
 
+// Toggles the game start state between active and inactive
+export function switchGameStatus() {
+  if (isGameStart === true) {
+    isGameStart = false;
+  } else {
+    isGameStart = true;
+  }
+}
+
 // Select both player boards
 const playerOneBoard = document.querySelector(".playerone-gameboard-wrapper");
 const playerTwoBoard = document.querySelector(".playertwo-gameboard-wrapper");
@@ -391,5 +398,3 @@ playerTwoBoard.addEventListener("drop", (e) => dragDrop(e));
 playerTwoBoard.addEventListener("dragover", (e) => e.preventDefault());
 playerTwoBoard.addEventListener("dragenter", (e) => dragEnter(e));
 playerTwoBoard.addEventListener("dragleave", (e) => dragLeave(e));
-
-renderPlayersGrid();

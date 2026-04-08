@@ -266,7 +266,7 @@ nav {
   cursor: grab;
 }
 
-.ship-layer-pleyerone {
+.ship-layer-playerone {
   position: absolute;
   z-index: 10;
   width: calc(10 * 52px);
@@ -276,7 +276,7 @@ nav {
   pointer-events: none;
 }
 
-.ship-layer-pleyertwo {
+.ship-layer-playertwo {
   position: absolute;
   z-index: 10;
   width: calc(10 * 52px);
@@ -286,53 +286,53 @@ nav {
   pointer-events: none;
 }
 
-.ship-layer-pleyerone .img-0 {
+.ship-layer-playerone .img-0 {
   height: 50px;
   width: calc(5 * 50px);
   pointer-events: auto;
 }
-.ship-layer-pleyerone .img-1 {
+.ship-layer-playerone .img-1 {
   height: 50px;
   width: calc(4 * 50px);
   pointer-events: auto;
 }
-.ship-layer-pleyerone .img-2 {
+.ship-layer-playerone .img-2 {
   height: 50px;
   width: calc(3 * 50px);
   pointer-events: auto;
 }
-.ship-layer-pleyerone .img-3 {
+.ship-layer-playerone .img-3 {
   height: 50px;
   width: calc(3 * 50px);
   pointer-events: auto;
 }
-.ship-layer-pleyerone .img-4 {
+.ship-layer-playerone .img-4 {
   height: 50px;
   width: calc(2 * 50px);
   pointer-events: auto;
 }
 
-.ship-layer-pleyertwo .img-0 {
+.ship-layer-playertwo .img-0 {
   height: 50px;
   width: calc(5 * 50px);
   pointer-events: auto;
 }
-.ship-layer-pleyertwo .img-1 {
+.ship-layer-playertwo .img-1 {
   height: 50px;
   width: calc(4 * 50px);
   pointer-events: auto;
 }
-.ship-layer-pleyertwo .img-2 {
+.ship-layer-playertwo .img-2 {
   height: 50px;
   width: calc(3 * 50px);
   pointer-events: auto;
 }
-.ship-layer-pleyertwo .img-3 {
+.ship-layer-playertwo .img-3 {
   height: 50px;
   width: calc(3 * 50px);
   pointer-events: auto;
 }
-.ship-layer-pleyertwo .img-4 {
+.ship-layer-playertwo .img-4 {
   height: 50px;
   width: calc(2 * 50px);
   pointer-events: auto;

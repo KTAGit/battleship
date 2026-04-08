@@ -3,6 +3,7 @@ import {
   renderTurn,
   placeShipForComputer,
   markBoard,
+  indicateTurn,
 } from "../ui/renderGameboard";
 import { finalCheck } from "./fleet";
 import { currentSetting } from "./initialScreen";
@@ -108,6 +109,7 @@ export function turnController(coordinate) {
   if (trackTurn === null || trackTurn === "playerOne") {
     const result = attackShip("playerOne", coordinate);
     if (result === "invalid coordinates") return;
+    indicateTurn("playerOne");
     trackTurn = "playerTwo";
     renderTurn(playerTwoData[0].playerName);
     if (currentSetting === "playerVsComputer") {
@@ -118,6 +120,7 @@ export function turnController(coordinate) {
   if (trackTurn === "playerTwo") {
     const result = attackShip("playerTwo", coordinate);
     if (result === "invalid coordinates") return;
+    indicateTurn("playerTwo");
     trackTurn = "playerOne";
     renderTurn(playerOneData[0].playerName);
     return result;

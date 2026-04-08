@@ -118,7 +118,11 @@ playerOneContainer.addEventListener("click", (e) => {
     if (e.target.classList.contains("grid-cell")) {
       const x = Number(e.target.dataset.x);
       const y = Number(e.target.dataset.y);
-      markBoard(turnController([x, y]), e.target);
+      const result = turnController([x, y]);
+      markBoard(result, e.target);
+      if (result === "hit") {
+        indicateHit(playerOneContainer);
+      }
     }
   }
 });
@@ -130,7 +134,11 @@ playeTwoContainer.addEventListener("click", (e) => {
     if (e.target.classList.contains("grid-cell")) {
       const x = Number(e.target.dataset.x);
       const y = Number(e.target.dataset.y);
-      markBoard(turnController([x, y]), e.target);
+      const result = turnController([x, y]);
+      markBoard(result, e.target);
+      if (result === "hit") {
+        indicateHit(playeTwoContainer);
+      }
     }
   }
 });
@@ -151,6 +159,7 @@ mainSection.addEventListener("click", (e) => {
       document.querySelector(".start-button").classList.remove("ready");
       startTimer();
       renderTurn(playerOneData[0].playerName);
+      indicateTurn("playerTwo");
 
       // Remove ship configuration layers from the UI
       let playerOneConfig = document.querySelector(".ship-layer-playerone");
@@ -310,6 +319,26 @@ function startTimer() {
     document.querySelector(".start-button").textContent =
       `${hour}:${min}:${sec}`;
   }, 1000);
+}
+
+// Highlights the active player's grid and removes highlight from the other
+export function indicateTurn(player) {
+  if (player === "playerOne") {
+    document.querySelector(".playerone-grid").classList.add("current-turn");
+    document.querySelector(".playertwo-grid").classList.remove("current-turn");
+  }
+  if (player === "playerTwo") {
+    document.querySelector(".playertwo-grid").classList.add("current-turn");
+    document.querySelector(".playerone-grid").classList.remove("current-turn");
+  }
+}
+
+// Temporarily applies a visual hit effect to the board
+function indicateHit(board) {
+  board.classList.add("hit-on-board");
+  setTimeout(() => {
+    board.classList.remove("hit-on-board");
+  }, 500);
 }
 
 // Positions a computer ship element on the board using grid coordinates and absolute offsets

@@ -73,6 +73,29 @@ nav {
   background-color: #04122a;
 }
 
+.current-turn {
+  animation: glowFade 5s infinite alternate;
+  border: rgb(100, 255, 218, 0.2) 20px solid;
+}
+
+@keyframes glowFadeTwo {
+  0% {
+    box-shadow: 0 0 5px #64ffdbb7;
+  }
+  50% {
+    box-shadow:
+      0 0 15px #64ffdbb7,
+      0 0 40px #64ffdbb7;
+  }
+  100% {
+    box-shadow: 0 0 5px #64ffdbb7;
+  }
+}
+
+.hit-on-board {
+  border: rgb(255, 82, 82, 0.2) 20px solid;
+}
+
 .playertwo-gameboard-wrapper {
   position: relative;
   display: flex;

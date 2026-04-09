@@ -8,6 +8,7 @@ import {
 } from "../controllers/controller";
 import { draggedFleet, finalCheck, rotateShip } from "../controllers/fleet";
 import { announceVictory } from "./victory";
+import { currentSetting } from "../controllers/initialScreen";
 
 // Timer state variables (formatted as HH:MM:SS) and interval reference
 export let sec = "00";
@@ -23,7 +24,7 @@ export let storePlayerShipConfig = [];
 
 // DOM references for both players gameboard containers
 const playerOneContainer = document.querySelector(".playerone-grid");
-const playeTwoContainer = document.querySelector(".playertwo-grid");
+const playerTwoContainer = document.querySelector(".playertwo-grid");
 const mainSection = document.querySelector(".main-section");
 
 /**
@@ -54,7 +55,7 @@ export function renderPlayersGrid() {
   const playerOneGrids = generateGrid();
   const playerTwoGrids = generateGrid();
   playerOneContainer.replaceChildren();
-  playeTwoContainer.replaceChildren();
+  playerTwoContainer.replaceChildren();
   // Render Player One's grid
   for (let i = 0; i < playerOneGrids.length; i++) {
     const element = playerOneGrids[i];
@@ -64,7 +65,7 @@ export function renderPlayersGrid() {
   // Render Player Two's grid
   for (let i = 0; i < playerTwoGrids.length; i++) {
     const element = playerTwoGrids[i];
-    playeTwoContainer.appendChild(element);
+    playerTwoContainer.appendChild(element);
   }
 }
 
@@ -76,6 +77,14 @@ export function markBoard(action, element) {
     element.textContent = "✕";
     if (action[0] === "gameover") {
       announceVictory(action[2], action[1]);
+      setTimeout(() => {
+        document
+          .querySelector(".playerone-grid")
+          .classList.remove("current-turn");
+        document
+          .querySelector(".playertwo-grid")
+          .classList.remove("current-turn");
+      }, 1500);
     }
   } else if (action === "miss") {
     element.classList.add("miss");
@@ -104,9 +113,8 @@ export function placeShipForComputer(shipObj, coordinate, axis) {
     ".ship-layer-playertwo",
   ).childElementCount;
   if (shipLayerChildCount === 5) {
-    let playerTwoConfig = document
-      .querySelector(".ship-layer-playertwo")
-      .remove();
+    let playerTwoConfig = document.querySelector(".ship-layer-playertwo");
+    playerTwoConfig.remove();
     storePlayerShipConfig.push(playerTwoConfig);
   }
 }
@@ -128,7 +136,7 @@ playerOneContainer.addEventListener("click", (e) => {
 });
 
 // Event listener for Player Two's board.
-playeTwoContainer.addEventListener("click", (e) => {
+playerTwoContainer.addEventListener("click", (e) => {
   if (isGameStart === false) return;
   if (trackTurn === null || trackTurn === "playerOne") {
     if (e.target.classList.contains("grid-cell")) {
@@ -137,7 +145,7 @@ playeTwoContainer.addEventListener("click", (e) => {
       const result = turnController([x, y]);
       markBoard(result, e.target);
       if (result === "hit") {
-        indicateHit(playeTwoContainer);
+        indicateHit(playerTwoContainer);
       }
     }
   }
@@ -171,7 +179,9 @@ mainSection.addEventListener("click", (e) => {
       }
 
       // Store removed configurations for later use
-      storePlayerShipConfig = [playerOneConfig, playerTwoConfig];
+      storePlayerShipConfig.unshift(playerOneConfig);
+      if (currentSetting === "playerVsComputer") return;
+      storePlayerShipConfig.push(playerTwoConfig);
     }
   }
 });

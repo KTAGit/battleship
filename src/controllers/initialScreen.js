@@ -35,7 +35,7 @@ function getUsername() {
   }
 }
 
-function checkGameMode() {
+export function checkGameMode() {
   const gameMode = currentSetting;
   if (gameMode === "playerVsComputer") {
     computerPlayer("place your fleet");

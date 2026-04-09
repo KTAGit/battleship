@@ -10,7 +10,9 @@ import {
   playerOneData,
   playerTwoData,
   initiateNewGame,
+  computerPlayer,
 } from "../controllers/controller";
+import { currentSetting } from "../controllers/initialScreen";
 
 // Selects and initially removes the victory popup from the DOM
 const victoryPopUp = document.querySelector(".victory-section");
@@ -46,8 +48,10 @@ function renderMedalIcon() {
 
 document.querySelector(".tint").addEventListener("click", (e) => {
   if (e.target.classList.contains("play-again-btn")) {
-    console.log("clicked");
     restartGame();
+    if (currentSetting === "playerVsComputer") {
+      computerPlayer("place your fleet");
+    }
   }
   if (e.target.classList.contains("restart-new-game-btn")) {
     restartGame();
@@ -65,7 +69,7 @@ const playerTwoContainer = document.querySelector(".playertwo-fleet-container");
 // Clears all board, fleet, and UI elements to prepare for a fresh game state
 function removeUsedElements() {
   const playerOneShipLayerEl = storePlayerShipConfig[0];
-  const playerTwoShipLayerEl = storePlayerShipConfig[1];
+  const playerTwoShipLayerEl = storePlayerShipConfig.at(-1);
   const tint = document.querySelector(".tint");
   playerOneShipLayerEl.replaceChildren();
   playerTwoShipLayerEl.replaceChildren();

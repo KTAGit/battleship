@@ -21,7 +21,7 @@ function getUsername() {
     } else if (!playerOneUsername) {
       initiateNewGame("OFFICER 1", playerTwoUsername);
     } else if (!playerTwoUsername) {
-      initiateNewGame(playerTwoUsername, "OFFICER 2");
+      initiateNewGame(playerOneUsername, "OFFICER 2");
     } else {
       initiateNewGame(playerOneUsername, playerTwoUsername);
     }

@@ -122,6 +122,7 @@ export function placeShipForComputer(shipObj, coordinate, axis) {
 // Event listener for Player One's board.
 playerOneContainer.addEventListener("click", (e) => {
   if (isGameStart === false) return;
+  if (currentSetting === "playerVsComputer") return;
   if (trackTurn === "playerTwo") {
     if (e.target.classList.contains("grid-cell")) {
       const x = Number(e.target.dataset.x);

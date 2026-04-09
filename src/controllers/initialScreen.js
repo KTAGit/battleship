@@ -28,7 +28,7 @@ function getUsername() {
   } else {
     // Handle Player vs Computer mode with a default name for player one
     if (!playerOneUsername) {
-      initiateNewGame("Player 1", playerTwoUsername);
+      initiateNewGame("OFFICER 1", playerTwoUsername);
     } else {
       initiateNewGame(playerOneUsername, playerTwoUsername);
     }

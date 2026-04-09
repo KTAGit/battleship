@@ -14,7 +14,7 @@ export function toggleSelection(select) {
     playerVsComputer.classList.add("selected");
     playerVsPlayer.classList.remove("selected");
     removeInputField("off");
-    document.querySelector("#player-two-input").value = "computer";
+    document.querySelector("#player-two-input").value = "COMPUTER";
   }
 }
 

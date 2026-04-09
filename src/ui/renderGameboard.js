@@ -345,7 +345,7 @@ export function indicateTurn(player) {
 }
 
 // Temporarily applies a visual hit effect to the board
-function indicateHit(board) {
+export function indicateHit(board) {
   board.classList.add("hit-on-board");
   setTimeout(() => {
     board.classList.remove("hit-on-board");

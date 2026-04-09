@@ -4,8 +4,8 @@ import {
   placeShipForComputer,
   markBoard,
   indicateTurn,
+  indicateHit,
 } from "../ui/renderGameboard";
-import { finalCheck } from "./fleet";
 import { currentSetting } from "./initialScreen";
 
 // Stores each player's instance and their ships
@@ -179,7 +179,11 @@ export function computerPlayer(gameStatus) {
       `[data-x='${randomCoordinate[0]}'][data-y='${randomCoordinate[1]}']`,
     );
     setTimeout(() => {
-      markBoard(turnController(randomCoordinate), targetCell);
+      const result = turnController(randomCoordinate);
+      markBoard(result, targetCell);
+      if (result === "hit") {
+        indicateHit(playerOneGrid);
+      }
     }, 1000);
   }
 }

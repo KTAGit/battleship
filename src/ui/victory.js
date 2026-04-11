@@ -11,6 +11,7 @@ import {
   playerTwoData,
   initiateNewGame,
   computerPlayer,
+  setTrackTurn,
 } from "../controllers/controller";
 import { currentSetting } from "../controllers/initialScreen";
 
@@ -49,12 +50,14 @@ function renderMedalIcon() {
 document.querySelector(".tint").addEventListener("click", (e) => {
   if (e.target.classList.contains("play-again-btn")) {
     restartGame();
+    setTrackTurn("playerOne");
     if (currentSetting === "playerVsComputer") {
       computerPlayer("place your fleet");
     }
   }
   if (e.target.classList.contains("restart-new-game-btn")) {
     restartGame();
+    setTrackTurn("playerOne");
     const tint = document.querySelector(".tint");
     const form = document.querySelector(".initial-screen");
     tint.style.display = "flex";

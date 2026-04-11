@@ -13,6 +13,9 @@ export let playerOneData;
 export let playerTwoData;
 // Keeps track of whose turn it is ("playerOne" | "playerTwo" | null for start)
 export let trackTurn = null;
+export function setTrackTurn(player) {
+  trackTurn = player;
+}
 
 // Creates two Player instances using the provided names.
 function createPlayers(playerOneName, playerTwoName) {

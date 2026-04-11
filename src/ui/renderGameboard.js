@@ -424,6 +424,20 @@ export function switchGameStatus() {
   }
 }
 
+// Displays a mobile-only alert message informing users that drag-and-drop is not supported
+function alert() {
+  const wrapper = document.createElement("div");
+  const alert = document.createElement("p");
+  wrapper.classList.add("alert-wrapper");
+  alert.classList.add("alert");
+  alert.textContent = "Drag-and-drop not supported on mobile devices.";
+  wrapper.appendChild(alert);
+  if ("ontouchstart" in window) {
+    document.querySelector(".tint").appendChild(wrapper);
+  }
+}
+alert();
+
 // Select both player boards
 const playerOneBoard = document.querySelector(".playerone-gameboard-wrapper");
 const playerTwoBoard = document.querySelector(".playertwo-gameboard-wrapper");
